@@ -89,7 +89,7 @@ config = {
     "base_activation": "nn.SiLU",
     
     "batch_size": 512,
-    "num_epochs": 1000,
+    "num_epochs": 700,
 
     "learning_rate": 1e-3,
     "weight_decay": 1e-4,
@@ -101,7 +101,7 @@ config = {
 
     # --- NEW ---
     "resume": True,                 # set True to resume
-    "resume_path": "layerwidth/20250921_103135/JSC_OpenML_acc0.7591_epoch517_remaining0.4940.pt",         # file .pt OR a directory to auto-pick latest
+    "resume_path": "models/20261012_202938",         # file .pt OR a directory to auto-pick latest
 }
 
 # ---------------------------
@@ -165,7 +165,7 @@ testloader = DataLoader(test_dataset, batch_size=config["batch_size"], shuffle=F
 # === Initialize Model ===
 model = KANQuant(config, JSC_input_layer, device).to(device)
 
-optimizer = optim.Adam(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])
+optimizer = optim.AdamW(model.parameters(), lr=config["learning_rate"], weight_decay=config["weight_decay"])
 scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.998)
 criterion = nn.CrossEntropyLoss()
 
